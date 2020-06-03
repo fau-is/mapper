@@ -1,8 +1,8 @@
 init:
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt
 
 install:
-	python3.7 setup.py install
+	python setup.py install
 
 run:
-	python3.7 -m label_mapper
+	python -m label_mapper

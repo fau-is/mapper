@@ -21,6 +21,7 @@ def build_comboboxes(activities, events):
         # Setup frame for better display in gui
         frame = Frame(main_window)
         frame.configure(background="gray30")
+        Scrollbar(frame).grid(column=2)
 
         # Label the left column as activity in a model + "beautify gui"
         text = "Activity name (model):"
@@ -38,7 +39,6 @@ def build_comboboxes(activities, events):
         # Label the combobox and place label and box in frame
         Label(frame, text="Event name (log):", bg="gray30", fg="white", padx=5).grid(column=1, row=0)
         combo.grid(column=1, row=1)
-
         # If the last activity in the graph is handled then do not write a separator
         if activity != activities[-1]:
             Separator(frame, orient="horizontal").grid(row=2, columnspan=2, sticky="ew", pady=10)
@@ -69,6 +69,8 @@ def build_main_window(activities, events):
 
     # Set up main window basics
     main_window = Tk()
+    scrollbar = Scrollbar(main_window)
+    scrollbar.grid(column=4, rowspan=1)
     main_window.configure(background="gray30")
     main_window.title("Label Mapper")
 
@@ -79,6 +81,16 @@ def build_main_window(activities, events):
     # Separate heading from the main selection frames
     Separator(main_window, orient="horizontal").grid(sticky="ew", pady=1)
     Separator(main_window, orient="horizontal").grid(sticky="ew", pady=1)
+
+    # build add button
+    Label(main_window, bg="gray30", fg="white", text="Add another output model").grid()
+    button = Button(main_window, text="+", bg="black", fg="white", command=lambda: build_comboboxes(activities, events))
+    button.grid()
+
+    Separator(main_window, orient="horizontal").grid(sticky="ew", pady=1)
+    Separator(main_window, orient="horizontal").grid(sticky="ew", pady=1)
+
+    no = 0
 
     # Build comboboxes from the lists
     build_comboboxes(activities, events)
